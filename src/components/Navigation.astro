@@ -1,0 +1,101 @@
+---
+// Navigation component for Seoul Pet Rescue
+const siteName = "Seoul Pet Rescue";
+const navLinks = [
+  { name: "Home", href: "/" },
+  { name: "Services", href: "/services" },
+  { name: "Blog", href: "/blog" }
+];
+
+let isMenuOpen = false;
+
+const toggleMenu = () => {
+  isMenuOpen = !isMenuOpen;
+};
+---
+
+<nav class="bg-white shadow-lg">
+  <div class="container mx-auto px-4 py-4">
+    <div class="flex justify-between items-center">
+      <!-- Logo/Brand - links to root -->
+      <a href="/" class="text-2xl font-bold text-[#4F772D] flex items-center">
+        <span class="font-serif">{siteName}</span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex gap-6">
+        {navLinks.map((link) => (
+          <a 
+            href={link.href} 
+            class="text-[#4F772D] hover:text-[#FF6B35] font-medium transition-colors duration-300 px-3 py-1 rounded-lg hover:bg-[#4F772D]/10"
+          >
+            {link.name}
+          </a>
+        ))}
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button 
+        class="md:hidden text-[#4F772D] focus:outline-none"
+        aria-label="Toggle menu"
+        onClick={toggleMenu}
+      >
+        <svg 
+          class="w-6 h-6" 
+          fill="none" 
+          stroke="currentColor" 
+          viewBox="0 0 24 24" 
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          {isMenuOpen ? (
+            <path 
+              stroke-linecap="round" 
+              stroke-linejoin="round" 
+              stroke-width="2" 
+              d="M6 18L18 6M6 6l12 12"
+            />
+          ) : (
+            <path 
+              stroke-linecap="round" 
+              stroke-linejoin="round" 
+              stroke-width="2" 
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          )}
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Navigation -->
+    {isMenuOpen && (
+      <div class="md:hidden mt-4 pb-4">
+        <div class="flex flex-col gap-3">
+          {navLinks.map((link) => (
+            <a 
+              href={link.href} 
+              class="text-[#4F772D] hover:text-[#FF6B35] font-medium py-2 px-4 rounded-lg hover:bg-[#4F772D]/10 transition-colors duration-300"
+              onClick={() => { isMenuOpen = false }}
+            >
+              {link.name}
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
+  </div>
+</nav>
+
+<style>
+  /* Gentle organic styling */
+  nav {
+    border-bottom-left-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+  }
+  
+  @media (min-width: 768px) {
+    nav {
+      border-bottom-left-radius: 3rem;
+      border-bottom-right-radius: 3rem;
+    }
+  }
+</style>
